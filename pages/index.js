@@ -1,7 +1,6 @@
 import Head from "next/head";
 import React from "react";
 // import Image from "next/image";
-import { Baloo_Bhai_2 } from "@next/font/google";
 import {
   Box,
   Button,
@@ -11,8 +10,6 @@ import {
   Image,
   Link,
 } from "@chakra-ui/react";
-import { SocialIconContainer } from "@/components/SocialIconContainer";
-import Logo from "@/components/Logo";
 import Section from "@/components/section";
 import Paragraph from "@/components/Paragraph";
 import NextLink from "next/link";
@@ -21,7 +18,6 @@ import { BioSection, BioYear } from "@/components/bio";
 import Layout from "@/components/Article";
 import { useTypewriter, Cursor } from "react-simple-typewriter";
 // import { Cursor } from "react-simple-typewriter/dist/components/Cursor";
-const inter = Baloo_Bhai_2({ subsets: ["latin"] });
 import { fetchPageInfo } from "@/utils/fetchPageInfo";
 import { urlFor } from "@/sanity";
 export default function Home({ pageInfo }) {

@@ -43,7 +43,6 @@ export default Experience;
 // implemet ISR
 export const getStaticProps = async () => {
   const experiences = await fetchExperience();
-  // console.log("pae", experiences);
   return {
     props: { experiences },
     revalidate: 10,

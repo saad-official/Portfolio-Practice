@@ -52,7 +52,6 @@ export default skills;
 // implemet ISR
 export const getStaticProps = async () => {
   const skills = await fetchSkills();
-  console.log("pae", skills);
   return {
     props: { skills },
     revalidate: 10,

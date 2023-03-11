@@ -188,7 +188,6 @@ const TypeWritter = () => {
 // implemet ISR
 export const getStaticProps = async () => {
   const pageInfo = await fetchPageInfo();
-  console.log("pae", pageInfo);
   return {
     props: { pageInfo },
     revalidate: 10,

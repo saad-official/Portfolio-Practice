@@ -39,7 +39,6 @@ export default Posts;
 // implemet ISR
 export const getStaticProps = async () => {
   const projects = await fetchProjects();
-  console.log("pae", projects);
   return {
     props: { projects },
     revalidate: 10,

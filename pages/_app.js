@@ -1,5 +1,4 @@
 import Navbar from "@/components/Navbar";
-import dynamic from "next/dynamic";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faTwitter,

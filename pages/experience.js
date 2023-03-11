@@ -1,18 +1,10 @@
 import Layout from "@/components/Article";
 import Section from "@/components/section";
-import Slider from "@/components/Slider";
-import { SlideData } from "@/dummydata";
 import { urlFor } from "@/sanity";
 import { fetchExperience } from "@/utils/fetchExperience";
 import {
-  Button,
-  ButtonGroup,
-  Card,
-  CardBody,
-  CardFooter,
   Divider,
   Heading,
-  Image,
   Text,
   Stack,
   Box,

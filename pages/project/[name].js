@@ -1,12 +1,6 @@
 import {
   Container,
-  Badge,
   Link,
-  List,
-  ListItem,
-  AspectRatio,
-  SimpleGrid,
-  Image,
   Text,
   Heading,
   Tooltip,
@@ -14,7 +8,6 @@ import {
   useColorModeValue,
 } from "@chakra-ui/react";
 import NextLink from "next/link";
-import { ExternalLinkIcon } from "@chakra-ui/icons";
 import { Title, WorkImage, Meta } from "../../components/work";
 import P from "../../components/Paragraph";
 import Layout from "../../components/Article";

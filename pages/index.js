@@ -1,14 +1,5 @@
 import Head from "next/head";
-import { useMediaQuery } from "@chakra-ui/media-query";
-import React, { useEffect, useState } from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faTwitter,
-  faInstagram,
-  faLinkedin,
-  faGithub,
-} from "@fortawesome/free-brands-svg-icons";
-import { motion, AnimatePresence } from "framer-motion";
+import React from "react";
 // import Image from "next/image";
 import { Baloo_Bhai_2 } from "@next/font/google";
 import {
@@ -31,28 +22,9 @@ import Layout from "@/components/Article";
 import { useTypewriter, Cursor } from "react-simple-typewriter";
 // import { Cursor } from "react-simple-typewriter/dist/components/Cursor";
 const inter = Baloo_Bhai_2({ subsets: ["latin"] });
-import { GetStaticProps } from "next";
 import { fetchPageInfo } from "@/utils/fetchPageInfo";
 import { urlFor } from "@/sanity";
-import Modal from "@/components/Modal";
 export default function Home({ pageInfo }) {
-  const [modalOpen, setModalOpen] = useState(false);
-  const [isMobile] = useMediaQuery("(min-width: 30em)", {
-    ssr: true,
-    fallback: false, // return false on the server, and re-evaluate on the client side
-  });
-  const styles = {
-    display: "flex",
-    alignItems: "center",
-    gap: "10px",
-    cursor: "pointer",
-    padding: ".5rem 1rem",
-    margin: "2rem auto auto 0",
-    background: "linear-gradient(10deg, #ffaa00, #ff6a00)",
-    color: "#101315",
-  };
-  const open = () => setModalOpen(true);
-  const close = () => setModalOpen(false);
   return (
     <Layout title={"Saad"}>
       <Container>
@@ -81,7 +53,6 @@ export default function Home({ pageInfo }) {
               fontFamily={"revert-layer"}
               fontSize={"large"}
             >
-              {/* Hello, I&apos;m a full stack developer */}
               <TypeWritter />
             </Box>
 
@@ -136,7 +107,6 @@ export default function Home({ pageInfo }) {
                 <NextLink href="https://www.canva.com/design/DAFcyxU8x9M/zP56W66lRjZ1GQkCvviHxg/view?utm_content=DAFcyxU8x9M&utm_campaign=designshare&utm_medium=link&utm_source=publishsharelink">
                   <Button
                     bgGradient="linear(to left, #179b64, #0076e5)"
-                    // gradient(to left, #179b64, #0076e5)
                     color={"white"}
                     _hover={{ bgGradient: "linear(to left, #179b64, #224b70)" }}
                     rightIcon={<ChevronRightIcon />}
@@ -184,150 +154,6 @@ export default function Home({ pageInfo }) {
                 Acting, Sports, <Link href="#">Music</Link>, Photography{" "}
                 <Link href="#">Machine Learning </Link>
               </Paragraph>
-
-              {/* media query if is in mobile */}
-              {/* {!isMobile && (
-                <Box
-                  // position={""}
-                  // right={"16"}
-                  // top={"20"}
-                  alignItems={"center"}
-                  justifyContent={"center"}
-                  display={"flex"}
-                >
-                  <motion.div
-                    initial={{
-                      x: 500,
-                      opacity: 0,
-                    }}
-                    animate={{
-                      x: 0,
-                      opacity: 1,
-                    }}
-                    transition={{
-                      duration: 1.5,
-                    }}
-                  >
-                    <motion.button
-                      style={styles}
-                      onClick={() => (modalOpen ? close() : open())}
-                      whileHover={{
-                        scale: 1.1,
-                      }}
-                      whileTap={{ scale: 0.9 }}
-                    >
-                      <Text fontFamily={"cursive"}>Get in Touch</Text>
-                      <EmailIcon width={"7"} height={"7"} />
-                    </motion.button>
-
-                    <AnimatePresence
-                      initial={false}
-                      mode={"wait"}
-                      onExitComplete={() => null}
-                    >
-                      {modalOpen && (
-                        <Modal
-                          text={"contact me"}
-                          modalOpen={modalOpen}
-                          handleClose={close}
-                        />
-                      )}
-                    </AnimatePresence>
-                  </motion.div>
-                </Box>
-              )}
-              {!isMobile && (
-                <Box
-                  display={"flex"}
-                  alignItems={"center"}
-                  mt="4"
-                  justifyContent={"center"}
-                  px={"16"}
-                  // position={"absolute"}
-                  // bottom={"-32"}
-                  // top={"0"}
-                  width={"full"}
-                >
-                  <motion.div
-                    style={{
-                      display: "flex",
-                      alignItems: "center",
-                      gap: "13px",
-                    }}
-                    initial={{
-                      x: -500,
-                      opacity: 0,
-                    }}
-                    animate={{
-                      x: 0,
-                      opacity: 1,
-                    }}
-                    transition={{
-                      duration: 1.5,
-                    }}
-                  >
-                    <SocialIconContainer>
-                      <FontAwesomeIcon
-                        icon={faLinkedin}
-                        style={{
-                          width: "25px",
-                          height: "25px",
-                          maxWidth: "25px",
-                          maxHeight: "25px",
-                          borderRadius: "50%",
-                        }}
-                        size="sm"
-                        color="#2c91e5"
-                      />
-                    </SocialIconContainer>
-
-                    <SocialIconContainer>
-                      <FontAwesomeIcon
-                        icon={faInstagram}
-                        style={{
-                          width: "25px",
-                          height: "25px",
-                          maxWidth: "25px",
-                          maxHeight: "25px",
-                          borderRadius: "50%",
-                        }}
-                        size="sm"
-                        color="red"
-                      />
-                    </SocialIconContainer>
-
-                    <SocialIconContainer>
-                      <FontAwesomeIcon
-                        icon={faGithub}
-                        style={{
-                          width: "25px",
-                          height: "25px",
-                          maxWidth: "25px",
-                          maxHeight: "25px",
-                          borderRadius: "50%",
-                        }}
-                        size="sm"
-                        color="black"
-                      />
-                    </SocialIconContainer>
-
-                    <SocialIconContainer>
-                      <FontAwesomeIcon
-                        icon={faTwitter}
-                        style={{
-                          width: "25px",
-                          height: "25px",
-                          maxWidth: "25px",
-                          maxHeight: "25px",
-                          borderRadius: "50%",
-                        }}
-                        size="sm"
-                        color="#49a1eb"
-                      />
-                    </SocialIconContainer>
-                  </motion.div>
-                </Box>
-              )} */}
             </Section>
           </Container>
         </Box>

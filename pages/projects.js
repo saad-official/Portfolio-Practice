@@ -3,7 +3,7 @@ import Layout from "@/components/Article";
 import Section from "@/components/section";
 import { fetchProjects } from "@/utils/fetchProjects";
 import { ProjectCard } from "@/components/ProjectCard";
-const Posts = ({ projects }) => (
+const Posts = ({ data }) => (
   <Layout title="Projects">
     <Container maxW={"full"}>
       <Heading
@@ -20,7 +20,7 @@ const Posts = ({ projects }) => (
 
       <Section delay={0.1}>
         <SimpleGrid columns={[1, 2, 2]} gap={6}>
-          {projects?.map((project) => (
+          {data?.projects?.map((project) => (
             <ProjectCard
               image={project?.image}
               name={project?.title}
@@ -38,9 +38,14 @@ export default Posts;
 
 // implemet ISR
 export const getStaticProps = async () => {
-  const projects = await fetchProjects();
+  // const projects = await fetchProjects();
+  const res = await fetch(
+    `${process.env.NEXT_PUBLIC_BASE_URL}/api/getProjects`
+  );
+  const data = await res.json();
+  // console.log(data);
   return {
-    props: { projects },
+    props: { data },
     revalidate: 10,
   };
 };

@@ -20,7 +20,7 @@ import { useTypewriter, Cursor } from "react-simple-typewriter";
 // import { Cursor } from "react-simple-typewriter/dist/components/Cursor";
 import { fetchPageInfo } from "@/utils/fetchPageInfo";
 import { urlFor } from "@/sanity";
-export default function Home({ pageInfo }) {
+export default function Home({ data }) {
   return (
     <Layout title={"Saad"}>
       <Container>
@@ -55,9 +55,9 @@ export default function Home({ pageInfo }) {
             <Box display={{ md: "flex" }}>
               <Box flexGrow={1}>
                 <Heading as="h2" variant="page-title">
-                  {pageInfo.title}
+                  {data?.pageInfo.title}
                 </Heading>
-                <p> {pageInfo.role} ( Developer / Designer) </p>
+                <p> {data?.pageInfo.role} ( Developer / Designer) </p>
               </Box>
               <Box
                 flexShrink={0}
@@ -77,7 +77,7 @@ export default function Home({ pageInfo }) {
                   maxWidth="100px"
                   display="inline-block"
                   borderRadius="full"
-                  src={urlFor(pageInfo?.heroImage).url()}
+                  src={urlFor(data?.pageInfo?.heroImage).url()}
                   alt="Profile Image"
                 />
               </Box>
@@ -89,7 +89,7 @@ export default function Home({ pageInfo }) {
               </Heading>
 
               <Paragraph>
-                {pageInfo.backgroundInformation}
+                {data?.pageInfo.backgroundInformation}
                 {/* <Link
                   as={NextLink}
                   href="/works/inkdrop"
@@ -183,9 +183,13 @@ const TypeWritter = () => {
 
 // implemet ISR
 export const getStaticProps = async () => {
-  const pageInfo = await fetchPageInfo();
+  // const pageInfo = await fetchPageInfo();
+  const res = await fetch(
+    `${process.env.NEXT_PUBLIC_BASE_URL}/api/getPageInfo`
+  );
+  const data = await res.json();
   return {
-    props: { pageInfo },
+    props: { data },
     revalidate: 10,
   };
 };

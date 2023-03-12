@@ -15,7 +15,7 @@ import {
 } from "@chakra-ui/react";
 import React from "react";
 
-const Experience = ({ experiences }) => {
+const Experience = ({ data }) => {
   return (
     <Layout title="experience">
       <Box>
@@ -29,8 +29,8 @@ const Experience = ({ experiences }) => {
         </Text>
       </Box>
       <SimpleGrid columns={[1, 2, 2]} spacing="10px">
-        {experiences?.map((experience) => (
-          <ExperienceCard key={experience._id} experience={experience} />
+        {data?.experience?.map((exper) => (
+          <ExperienceCard key={exper._id} experience={exper} />
         ))}
       </SimpleGrid>
     </Layout>
@@ -41,9 +41,13 @@ export default Experience;
 
 // implemet ISR
 export const getStaticProps = async () => {
-  const experiences = await fetchExperience();
+  // const experiences = await fetchExperience();
+  const res = await fetch(
+    `${process.env.NEXT_PUBLIC_BASE_URL}/api/getExperience`
+  );
+  const data = await res.json();
   return {
-    props: { experiences },
+    props: { data },
     revalidate: 10,
   };
 };

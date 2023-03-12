@@ -45,7 +45,7 @@ const Skill = ({skill}) => {
           <img
             src={urlFor(skill?.image).url()}
             alt=""
-            srcset=""
+  
             style={{
               borderRadius: "50%",
               width: "50px",

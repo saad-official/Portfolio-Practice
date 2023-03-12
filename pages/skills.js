@@ -4,7 +4,7 @@ import { fetchSkills } from "@/utils/fetchSkillss";
 import { Container, SimpleGrid, Text, Tooltip } from "@chakra-ui/react";
 import React, { useState } from "react";
 
-const skills = ({ skills }) => (
+const skills = ({ data }) => (
   <Layout title="skills">
     <h1
       style={{
@@ -38,7 +38,7 @@ const skills = ({ skills }) => (
       }}
     >
       <SimpleGrid columns={[3, null, 4]} spacing="20px">
-        {skills?.map((skill) => (
+        {data?.skills?.map((skill) => (
           <Skill key={skill._id} skill={skill} />
         ))}
       </SimpleGrid>
@@ -51,9 +51,11 @@ export default skills;
 
 // implemet ISR
 export const getStaticProps = async () => {
-  const skills = await fetchSkills();
+  // const skills = await fetchSkills();
+  const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/getSkills`);
+  const data = await res.json();
   return {
-    props: { skills },
+    props: { data },
     revalidate: 10,
   };
 };

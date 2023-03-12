@@ -3,8 +3,14 @@ import Skill from "@/components/Skill";
 import { fetchSkills } from "@/utils/fetchSkillss";
 import { Container, SimpleGrid, Text, Tooltip } from "@chakra-ui/react";
 import React, { useState } from "react";
+import { groq } from "next-sanity";
+import { sanityClient } from "../sanity";
 
-const skills = ({ data }) => (
+const query = groq`
+*[_type == 'skill']
+`;
+
+const skills = ({ skills }) => (
   <Layout title="skills">
     <h1
       style={{
@@ -38,7 +44,7 @@ const skills = ({ data }) => (
       }}
     >
       <SimpleGrid columns={[3, null, 4]} spacing="20px">
-        {data?.skills?.map((skill) => (
+        {skills?.map((skill) => (
           <Skill key={skill._id} skill={skill} />
         ))}
       </SimpleGrid>
@@ -52,10 +58,11 @@ export default skills;
 // implemet ISR
 export const getStaticProps = async () => {
   // const skills = await fetchSkills();
-  const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/getSkills`);
-  const data = await res.json();
+  // const res = await fetch(`http://localhost:3000/api/getSkills`);
+  // const data = await res.json();
+  const skills = await sanityClient.fetch(query);
   return {
-    props: { data },
+    props: { skills },
     revalidate: 10,
   };
 };

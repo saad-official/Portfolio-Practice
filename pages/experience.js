@@ -2,6 +2,14 @@ import Layout from "@/components/Article";
 import Section from "@/components/section";
 import { urlFor } from "@/sanity";
 import { fetchExperience } from "@/utils/fetchExperience";
+import { groq } from "next-sanity";
+import { sanityClient } from "../sanity";
+const query = groq`
+*[_type == 'experience'] {
+    ...,
+    technologies[]->
+}
+`;
 import {
   Divider,
   Heading,
@@ -15,7 +23,7 @@ import {
 } from "@chakra-ui/react";
 import React from "react";
 
-const Experience = ({ data }) => {
+const Experience = ({ experience }) => {
   return (
     <Layout title="experience">
       <Box>
@@ -29,7 +37,7 @@ const Experience = ({ data }) => {
         </Text>
       </Box>
       <SimpleGrid columns={[1, 2, 2]} spacing="10px">
-        {data?.experience?.map((exper) => (
+        {experience?.map((exper) => (
           <ExperienceCard key={exper._id} experience={exper} />
         ))}
       </SimpleGrid>
@@ -42,12 +50,12 @@ export default Experience;
 // implemet ISR
 export const getStaticProps = async () => {
   // const experiences = await fetchExperience();
-  const res = await fetch(
-    `${process.env.NEXT_PUBLIC_BASE_URL}/api/getExperience`
-  );
-  const data = await res.json();
+  // const res = await fetch(`http://localhost:3000/api/getExperience`);
+  const experience = await sanityClient.fetch(query);
+  // console.log(experience);
+  // const data = await experience.;
   return {
-    props: { data },
+    props: { experience },
     revalidate: 10,
   };
 };

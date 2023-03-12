@@ -8,6 +8,8 @@ import {
   useColorModeValue,
 } from "@chakra-ui/react";
 import NextLink from "next/link";
+import { groq } from "next-sanity";
+import { sanityClient } from "../../sanity";
 import { Title, WorkImage, Meta } from "../../components/work";
 import P from "../../components/Paragraph";
 import Layout from "../../components/Article";
@@ -114,9 +116,14 @@ export default Work;
 // implemet ISR
 export const getServerSideProps = async ({ params }) => {
   const { name } = params;
-  console.log("m", name);
-  const project = await fetchSpecificProject(name);
-  console.log("pae", project);
+  const query = groq`
+  *[_type == 'myproject' && _id == '${name}'][0]{
+    ...,
+    technologies[]->
+}`;
+  const project = await sanityClient.fetch(query);
+  // const project = await fetchSpecificProject(name);
+  // console.log("pae", project);
   return {
     props: { project },
   };

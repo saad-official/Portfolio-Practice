@@ -3,7 +3,14 @@ import Layout from "@/components/Article";
 import Section from "@/components/section";
 import { fetchProjects } from "@/utils/fetchProjects";
 import { ProjectCard } from "@/components/ProjectCard";
-const Posts = ({ data }) => (
+import { groq } from "next-sanity";
+import { sanityClient } from "../sanity";
+
+const query = groq`
+*[_type == 'myproject']
+`;
+
+const Posts = ({ projects }) => (
   <Layout title="Projects">
     <Container maxW={"full"}>
       <Heading
@@ -20,7 +27,7 @@ const Posts = ({ data }) => (
 
       <Section delay={0.1}>
         <SimpleGrid columns={[1, 2, 2]} gap={6}>
-          {data?.projects?.map((project) => (
+          {projects?.map((project) => (
             <ProjectCard
               image={project?.image}
               name={project?.title}
@@ -39,13 +46,12 @@ export default Posts;
 // implemet ISR
 export const getStaticProps = async () => {
   // const projects = await fetchProjects();
-  const res = await fetch(
-    `${process.env.NEXT_PUBLIC_BASE_URL}/api/getProjects`
-  );
-  const data = await res.json();
+  // const res = await fetch(`http://localhost:3000/api/getProjects`);
+  // const data = await res.json();
   // console.log(data);
+  const projects = await sanityClient.fetch(query);
   return {
-    props: { data },
+    props: { projects },
     revalidate: 10,
   };
 };

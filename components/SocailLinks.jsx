@@ -5,6 +5,12 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { SocialIconContainer } from "./SocialIconContainer";
 import { motion } from "framer-motion";
 import Modal from "./Modal";
+import { groq } from "next-sanity";
+import { sanityClient } from "../sanity";
+
+const query = groq`
+*[_type == "social"]
+`;
 import {
   faYoutube,
   faFacebook,
@@ -26,11 +32,14 @@ const SocailLinks = () => {
 
   useEffect(() => {
    async function getSocailUrl(){
-      const pageInfo = await fetchSocials();
-      setSocailUrl(pageInfo);
+    //   const pageInfo = await fetchSocials();
+    //  setSocailUrl(pageInfo);
+     const social = await sanityClient.fetch(query);
+     console.log(social);
+     setSocailUrl(social);
     }
     getSocailUrl();
-  }, []);
+  }, [query]);
 
   const styles = {
     display: "flex",
@@ -71,7 +80,7 @@ const SocailLinks = () => {
               duration: 1.5,
             }}
           >
-            <Link href={socialUrl[0]?.url}  target="_blank">
+            <Link href={socialUrl[0]?.url || 'https://www.linkedin.com/in/saad-khan-539844204/'}  target="_blank">
             <SocialIconContainer >
               <FontAwesomeIcon 
                 icon={faLinkedin}
@@ -104,7 +113,7 @@ const SocailLinks = () => {
           </SocialIconContainer>
           </Link>
 
-          <Link href={socialUrl[1]?.url}  target="_blank">
+          <Link href={socialUrl[1]?.url || 'https://github.com/labyh123456'}  target="_blank">
             <SocialIconContainer>
               <FontAwesomeIcon
                 icon={faGithub}
@@ -122,7 +131,7 @@ const SocailLinks = () => {
             </Link>
 
             
-            <Link href={socialUrl[2]?.url}  target="_blank">
+            <Link href={socialUrl[2]?.url || 'https://twitter.com/tommmyy890'}  target="_blank">
             <SocialIconContainer>
               <FontAwesomeIcon
                 icon={faTwitter}

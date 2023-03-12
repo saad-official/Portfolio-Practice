@@ -13,9 +13,7 @@ const VoxelDog = () => {
   const [loading, setLoading] = useState(true);
   const refRenderer = useRef();
   const urlDogGLB =
-    (process.env.NODE_ENV === "production"
-      ? "https://modern-portfolio-inky.vercel.app"
-      : "") + "/dog.glb";
+    (process.env.NODE_ENV === "production" ? "" : "") + "/dog.glb";
 
   const handleWindowResize = useCallback(() => {
     const { current: renderer } = refRenderer;
